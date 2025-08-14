@@ -22,13 +22,39 @@ nav {
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
+
 /*----------
 --- Logo --
 --------- */
 .logo img {
-  height: 4rem;
-  width: 4rem;
+  height: 15rem;
+  width: 15rem;
 }
+.logo{
+  display: flex;
+  animation: fadeSlide 2s ease;
+}
+@keyframes fadeSlide {
+  0%{
+  opacity: 0;
+  transform: translateX(-50px);
+}
+100%{
+  opacity: 1;
+  transform: translateX(0);
+}
+}
+.logo p{
+  margin-top: 1.5rem;
+  font-weight: bold;
+  font-family: cursive;
+  font-size: 1.1rem;
+  color: red;
+}
+.logo p span{
+  color: blue;
+}
+
 
 /* Menu */
 .menu {

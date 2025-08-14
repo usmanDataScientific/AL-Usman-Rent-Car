@@ -69,7 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
  const elements = document.querySelectorAll('.fade-left, .fade-right');
-
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -79,43 +78,36 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }, { threshold: 0.2 });
-
   elements.forEach(el => observer.observe(el));
 
 
-
+/// Scroll Text
     function revealOnScroll() {
     const boxes = document.querySelectorAll('.border-box');
     const triggerBottom = window.innerHeight * 0.85; // 85% from top
-
     boxes.forEach(box => {
-      const boxTop = box.getBoundingClientRect().top;
-
+    const boxTop = box.getBoundingClientRect().top;
       if (boxTop < triggerBottom) {
         box.classList.add('show');
       }
     });
   }
-
   window.addEventListener('scroll', revealOnScroll);
   window.addEventListener('load', revealOnScroll);
 
 
 
-
+/// Counting ////
  function startCounterAnimation() {
     const counters = document.querySelectorAll('.counter');
     const triggerBottom = window.innerHeight * 0.85;
-
     counters.forEach(counter => {
       const boxTop = counter.getBoundingClientRect().top;
-
       if (boxTop < triggerBottom && !counter.classList.contains('counted')) {
         counter.classList.add('counted');
         const target = +counter.getAttribute('data-target');
         let count = 0;
         const speed = target / 100; // adjust speed
-
         const updateCounter = () => {
           if (count < target) {
             count += speed;
@@ -129,9 +121,104 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-
   window.addEventListener('scroll', startCounterAnimation);
   window.addEventListener('load', startCounterAnimation);
-
  const textSection = document.querySelector('.text');
 
+/// Animation ///
+  AOS.init({
+    duration: 1200, // Animation speed (ms)
+    once: true,     // Animation sirf 1 baar chale
+  });
+
+
+
+
+/// Whatsapp Book Now
+
+   // 1) PUT YOUR WHATSAPP NUMBER HERE (country code + number, no plus sign)
+    // Example: Pakistan 92 + 3001234567 => "923001234567"
+    const WHATSAPP_NUMBER = "923004221975"; // TODO: change to your number
+
+    // 2) Detect platform (mobile vs desktop) for best WhatsApp endpoint
+    function waBaseURL() {
+      const isMobile = /Android|iPhone|iPad|iPod|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      return isMobile ? "https://wa.me/" : "https://web.whatsapp.com/send?phone=";
+    }
+
+    // 3) Build message from form values
+    function buildMessage({ name, email, phone, service, message }) {
+      return (
+        `Hi! I am ${name}. I want ${service}.\n` +
+        (phone ? `My phone: ${phone}\n` : "") +
+        (email ? `Email: ${email}\n` : "") +
+        `\nDetails:\n${message}`
+      );
+    }
+
+    // 4) Update preview live
+    const fields = ["name","email","phone","service","message"];
+    const values = { name:"", email:"", phone:"", service:"", message:"" };
+    const preview = document.getElementById('preview');
+
+    function renderPreview(){
+      const text = buildMessage(values)
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;");
+      preview.innerText = text;
+    }
+
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      el.addEventListener('input', () => {
+        values[id] = el.value.trim();
+        renderPreview();
+      });
+      // initialize
+      values[id] = el.value.trim();
+    });
+    renderPreview();
+
+    // 5) Hook up FAB quick link
+    function buildWaURL(msg){
+      const encoded = encodeURIComponent(msg);
+      const base = waBaseURL();
+      if (base.includes('wa.me')) {
+        return `${base}${WHATSAPP_NUMBER}?text=${encoded}`;
+      }
+      return `${base}${WHATSAPP_NUMBER}&text=${encoded}`;
+    }
+
+    document.getElementById('fab').href = buildWaURL('Hello! I want to chat.');
+
+    // 6) Handle submit → open WhatsApp
+    const form = document.getElementById('waForm');
+    const error = document.getElementById('formError');
+    const success = document.getElementById('formSuccess');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      error.style.display = 'none';
+      success.style.display = 'none';
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const service = document.getElementById('service').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!name || !service || !message) {
+        error.style.display = 'block';
+        return;
+      }
+
+      const msg = buildMessage({ name, email, phone, service, message });
+      const url = buildWaURL(msg);
+
+      // Open in new tab/window to avoid popup blockers on some browsers
+      window.open(url, '_blank', 'noopener');
+      success.style.display = 'block';
+
+      // Optional: clear form after a small delay
+      setTimeout(() => form.reset(), 1200);
+    });
