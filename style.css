@@ -25,32 +25,39 @@ nav {
 /*----------
 --- Logo --
 --------- */
-.logo img {
+.logo img
+{
   height: 15rem;
   width: 15rem;
 }
-.logo{
+.logo
+{
   display: flex;
   animation: fadeSlide 2s ease;
 }
-@keyframes fadeSlide {
-  0%{
-  opacity: 0;
-  transform: translateX(-50px);
+@keyframes fadeSlide 
+{
+  0%
+  {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  100%
+  {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
-100%{
-  opacity: 1;
-  transform: translateX(0);
-}
-}
-.logo p{
+.logo p
+{
   margin-top: 1.5rem;
   font-weight: bold;
   font-family: cursive;
   font-size: 1.1rem;
   color: red;
 }
-.logo p span{
+.logo p span
+{
   color: blue;
 }
 
@@ -644,9 +651,11 @@ nav {
   }
 
   .items-about li {
-    font-size: 1rem;
+    font-size: 0.8rem;
     line-height: 1.5rem;
-   
+   width: 20rem;
+   font-weight: bold;
+   text-align: left;
   }
 }
 
@@ -1273,6 +1282,92 @@ nav {
 
 
 
+ /* Main Slider */
+    .slider {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 0.6s ease-in-out;
+      height: 100%;
+    }
+
+    .slides img {
+      width: 100%;
+      height: 100vh;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    /* Buttons */
+    .btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2.5rem;
+      color: white;
+      background: rgba(0, 0, 0, 0.4);
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 50%;
+      z-index: 10;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: rgba(0, 0, 0, 0.7);
+    }
+
+    .prev {
+      left: 20px;
+    }
+
+    .next {
+      right: 20px;
+    }
+
+    /* Caption */
+    .caption {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 1.8rem;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 12px 25px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 80%;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .caption {
+        font-size: 1.3rem;
+        padding: 8px 16px;
+      }
+      .btn {
+        font-size: 2rem;
+        padding: 8px 12px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .caption {
+        font-size: 1rem;
+        padding: 6px 12px;
+      }
+      .btn {
+        font-size: 1.5rem;
+        padding: 6px 10px;
+      }
+    }
 
 
 /*--------------------------------------------------------
@@ -1399,7 +1494,7 @@ nav {
 
 .services-pic img {
   width: 15rem;
-  height: 10rem;
+  height: 17rem;
   transition: transform 0.3s ease;
 }
 .services:hover .services-track {

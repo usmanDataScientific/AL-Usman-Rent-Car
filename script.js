@@ -3,26 +3,25 @@ const menu = document.querySelector('.menu');
 const textContainer = document.querySelector('.container-text');
 const video = document.querySelector('.video-container video');
 
-if (hamburger) {
-  hamburger.addEventListener('click', () => {
-    menu.classList.toggle('show');
-
-
-    // icon change
-    const icon = hamburger.querySelector('i');
-    if (menu.classList.contains('show')) {
-      icon.classList.remove('fa-bars');
-      icon.classList.add('fa-xmark');  // close icon
-    } else {
-      icon.classList.remove('fa-xmark');
-      icon.classList.add('fa-bars');   // back to menu icon
-    }
+if (hamburger)
+{
+    hamburger.addEventListener('click',
+       () =>
+        {
+        menu.classList.toggle('show');
+      // icon change
+      const icon = hamburger.querySelector('i');
+      if (menu.classList.contains('show'))
+      {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-xmark');  // close icon
+      }
+      else
+      {
+        icon.classList.remove('fa-xmark');
+        icon.classList.add('fa-bars');   // back to menu icon
+      }
   });
- 
-  
-  
-
-
 }
 
 // Function to show text after 4 sec
@@ -134,7 +133,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+ const slides = document.getElementById('slides');
+    const caption = document.getElementById('caption');
+    const images = slides.querySelectorAll('img');
+    const captions = [
+      "Family Event Function",
+      "Azad Kashmir - Lakes • Meadows • Serenity",
+      "Naran Kaghan",
+      "Hunza Valley - Murree• Attabad ",
+      "Skardu",
+      "Adventure Starts with Mountain Car Vibes",
+      "Mountain Car Vibe Rentals – Family & Tourist Rides",
+      "Luxury Coaster Tour – Comfort for Your Journey"
+    ];
 
+    let index = 0;
+    function showSlide(i) {
+      if (i < 0) index = images.length - 1;
+      else if (i >= images.length) index = 0;
+      else index = i;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+      caption.textContent = captions[index];
+    }
 
-
-// Apna WhatsApp number (country code + number, bina + sign ke)
+    function prevSlide() {
+      showSlide(index - 1);
+    }
+    function nextSlide() {
+      showSlide(index + 1);
+    }
