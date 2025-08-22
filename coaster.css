@@ -53,6 +53,7 @@ nav {
 }
 .logo p span{
   color: blue;
+  font-family: cursive;
 }
 
 
@@ -202,37 +203,39 @@ nav {
 
 
 
-
 .services-box {
     width: 100%;
-    min-height: auto;
     padding: 4rem 2rem;
     margin-top: 4rem;
 
-    /* Animated background */
+    /* Animated gradient background */
     background: linear-gradient(120deg, #4facfe, #9b59b6, #4facfe);
     background-size: 300% 300%;
-    animation: gradientMove 8s ease infinite;
-    animation: slideDown 2s ease;
+    animation: gradientMove 8s ease infinite, slideDown 1.5s ease;
+    border-radius: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
+
+/* Slide-down animation */
 @keyframes slideDown {
-    0%{
+    0% {
         opacity: 0;
-        transform: translateY(-130px);
+        transform: translateY(-80px);
     }
-    100%{
+    100% {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateY(0);
     }
 }
 
+/* Gradient animation */
 @keyframes gradientMove {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
-/* Grid for service cards */
+/* Grid layout */
 .border,
 .border-box2 {
     display: grid;
@@ -243,31 +246,56 @@ nav {
 
 /* Card styling */
 .border-box {
-    background-color: white;
+    background: white;
     border-radius: 20px;
     padding: 2rem 1rem;
     text-align: center;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+.border-box::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(160,32,240,0.15), transparent 70%);
+    transform: scale(0);
+    transition: transform 0.5s ease;
+}
+.border-box:hover::before {
+    transform: scale(1);
 }
 .border-box:hover {
-    transform: translateY(-8px);
+    transform: translateY(-10px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
 }
+
 .border-box img {
-    width: 19rem;
-    height: 19rem;
+    width: 100%;
+    max-width: 18rem;  /* max size fix */
+    height: 12rem;     /* sab images ki height same */
+    object-fit: contain; /* image cut na ho, puri visible ho */
     margin-bottom: 1rem;
+    border-radius: 10px;
+    padding: 5px; /* thoda gap for clean look */
 }
+
 .border-box p {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 1rem;
+    color: #4a148c;
 }
 .border-box h5 {
-    font-weight: 100;
+    font-weight: 400;
     font-size: 1.05rem;
     line-height: 1.6rem;
     margin: 0 auto 1rem auto;
     max-width: 90%;
+    color: #555;
 }
 
 /* Button */
@@ -281,14 +309,15 @@ nav {
     cursor: pointer;
     transition: all 0.3s ease;
     margin-top: 1rem;
+    font-size: 1rem;
 }
 .learn-more:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
 
 .learn-more .fa-right-long {
-  margin-left: 1rem;
+    margin-left: 1rem;
 }
 
 /* Responsive adjustments */
@@ -305,22 +334,16 @@ nav {
 @media (max-width: 600px) {
     .border,
     .border-box2 {
-        grid-template-columns: 1fr; /* One column */
+        grid-template-columns: 1fr; /* Single column */
     }
     .border-box h5 {
         font-size: 1rem;
     }
+    .border-box img {
+        width: 12rem;
+        height: 12rem;
+    }
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -394,7 +417,6 @@ nav {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #f1f1f1;
   color: #333;
   font-size: 18px;
   transition: all 0.3s ease;
@@ -434,4 +456,11 @@ nav {
   .footer-col .social-icons {
     margin-top: 10px;
   }
+}
+.footer-col a{
+  list-style: none;
+  text-decoration: none;
+}
+.footer-col a {
+  color: white;
 }

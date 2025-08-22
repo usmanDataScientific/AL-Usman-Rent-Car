@@ -162,3 +162,21 @@ document.addEventListener("DOMContentLoaded", () => {
     function nextSlide() {
       showSlide(index + 1);
     }
+
+
+
+ const accordions = document.querySelectorAll(".accordion-item");
+
+    accordions.forEach(item => {
+      const header = item.querySelector(".accordion-header");
+      header.addEventListener("click", () => {
+        // Close all
+        accordions.forEach(acc => {
+          if (acc !== item) {
+            acc.classList.remove("active");
+          }
+        });
+        // Toggle current
+        item.classList.toggle("active");
+      });
+    });

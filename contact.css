@@ -52,6 +52,7 @@ nav {
 }
 .logo p span{
   color: blue;
+  font-family: cursive;
 }
 
 
@@ -457,8 +458,7 @@ nav {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #f1f1f1;
-  color: #333;
+  color: #0d0d0d;
   font-size: 18px;
   transition: all 0.3s ease;
 }
@@ -497,4 +497,11 @@ nav {
   .footer-col .social-icons {
     margin-top: 10px;
   }
+}
+.footer-col a{
+  list-style: none;
+  text-decoration: none;
+}
+.footer-col a {
+  color: white;
 }
