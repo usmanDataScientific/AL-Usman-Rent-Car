@@ -180,3 +180,15 @@ document.addEventListener("DOMContentLoaded", () => {
         item.classList.toggle("active");
       });
     });
+
+
+     const items = document.querySelectorAll(".accordion-item");
+
+    items.forEach(item => {
+      item.querySelector(".accordion-header").addEventListener("click", () => {
+        // close other open items
+        items.forEach(i => i.classList.remove("active"));
+        // toggle current
+        item.classList.toggle("active");
+      });
+    });
